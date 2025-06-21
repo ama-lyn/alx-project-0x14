@@ -1,76 +1,44 @@
-import React, { useState } from 'react';
-import type { NextPage } from 'next';
-import Layout from '../components/layouts/Layout';
-import MovieCard from '../components/commons/MovieCard';
-import Button from '../components/layouts/Button';
-import Loading from '../components/commons/Loading';
-
-const mockMovies = [
-  {
-    id: 1,
-    title: "Sample Movie 1",
-    posterPath: "/vercel.svg", 
-    releaseDate: "2024-03-20",
-    overview: "This is a sample movie description that showcases how the movie card component displays movie information."
-  },
-  {
-    id: 2,
-    title: "Sample Movie 2",
-    posterPath: "/vercel.svg",
-    releaseDate: "2024-03-19",
-    overview: "Another sample movie description to demonstrate the grid layout and movie card design."
-  },
-
-];
-
-const Home: NextPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+import Button from "@/components/commons/Button";
+import { useRouter } from "next/router";
+const Home: React.FC = () => {
+  const router = useRouter();
 
   return (
-    <Layout>
-      <div className="space-y-8">
-        {/* Hero Section */}
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold text-gray-900">
-            Welcome to Movie App
+    <div className="bg-[#171D22] text-white">
+      <section
+        className="h-screen bg-cover bg-center"
+        style={{
+          backgroundImage:
+            'url("https://themebeyond.com/html/movflx/img/bg/breadcrumb_bg.jpg")',
+        }}
+      >
+        <div className="bg-black bg-opacity-50 h-full flex flex-col justify-center items-center text-center">
+          <h1 className="text-5xl md:text-7xl font-bold mb-8">
+            Discover Your Next Favorite{" "}
+            <span className="text-[#E2D609]">Movie</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover and explore your favorite movies all in one place
+          <p className="text-lg md:text-2xl mb-8 max-w-2xl">
+            Explore the latest blockbuster movies, critically acclaimed films,
+            and your personal favorites – all in one place.
           </p>
-          <div className="flex justify-center gap-4">
-            <Button variant="primary" size="large">
-              Browse Movies
-            </Button>
-            <Button variant="outline" size="large">
-              View Watchlist
-            </Button>
-          </div>
+          <Button
+            title="Browse Movies"
+            action={() => router.push("/movies", undefined, { shallow: false })}
+          />
         </div>
+      </section>
 
-        {/* Movies Grid */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-semibold mb-6">Popular Movies</h2>
-          {isLoading ? (
-            <div className="flex justify-center items-center min-h-[300px]">
-              <Loading size="large" />
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {mockMovies.map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  title={movie.title}
-                  posterPath={movie.posterPath}
-                  releaseDate={movie.releaseDate}
-                  overview={movie.overview}
-                  onClick={() => console.log(`Clicked movie: ${movie.title}`)}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    </Layout>
+      <section className="py-16 px-8 md:px-44 bg-[#121018] text-center">
+        <h2 className="text-3xl md:text-5xl font-semibold mb-8">
+          Join CineSeek Now!
+        </h2>
+        <p className="text-lg md:text-2xl mb-12">
+          Sign up today to get access to the latest movies, exclusive content,
+          and personalized movie recommendations.
+        </p>
+        <Button title="Get Started" />
+      </section>
+    </div>
   );
 };
 
